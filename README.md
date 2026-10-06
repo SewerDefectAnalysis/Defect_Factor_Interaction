@@ -10,16 +10,18 @@ flowchart LR
 
     A[Database Structure]:::data --> B[Validation<br/>Rules]:::validation
     B --> D[Defect Distribution<br/>Analysis]:::analysis
-    D --> E[Defect-Factor<br/>Correlation]:::analysisP2
+    D --> E
 
-        %% Red box ONLY around E
+    C[Optional: Validation<br/>Report]:::optional
+    B -.-> C
+
+    %% Red box ONLY around E
     subgraph boxE[ ]
         direction TB
         E[Defect-Factor<br/>Correlation]:::analysisP2
     end
 
     style boxE stroke:#FF0000,stroke-width:3px,fill:none
-
 
     %% Click links
     click A "https://github.com/SewerDefectAnalysis/Database_Structure"
