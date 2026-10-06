@@ -6,22 +6,40 @@ This repository is part of a broader project that aims to analyze sewer deterior
 
 ```mermaid
 %%{init: {'flowchart': {'nodeSpacing': 40, 'rankSpacing': 50}}}%%
+%%{init: {'flowchart': {'nodeSpacing': 40, 'rankSpacing': 50}}}%%
 flowchart LR
 
-    A[Database Structure]:::data --> B[Validation<br/>Rules]:::validation
-    B --> D[Defect Distribution<br/>Analysis]:::analysis
-    D --> E
+    A[Database Structure]:::data
 
-    C[Optional: Validation<br/>Report]:::optional
-    B -.-> C
+    subgraph validationColumn[ ]
+        direction TB
+        C[Optional: Validation<br/>Report]:::optional
+        B[Validation<br/>Rules]:::validation
 
-    %% Red box ONLY around E
+        C ~~~ B
+    end
+
+    D[Defect Distribution<br/>Analysis]:::analysis
+
     subgraph boxE[ ]
         direction TB
         E[Defect-Factor<br/>Correlation]:::analysisP2
     end
 
+    %% Main workflow
+    A --> B
+    B --> D
+    D --> E
+
+    %% Optional connection
+    B -.-> C
+
+    %% Remove border around the positioning subgraph
+    style validationColumn fill:none,stroke:none
+
+    %% Red box around E
     style boxE stroke:#FF0000,stroke-width:3px,fill:none
+
 
     %% Click links
     click A "https://github.com/SewerDefectAnalysis/Database_Structure"
@@ -30,12 +48,13 @@ flowchart LR
     click D "https://github.com/SewerDefectAnalysis/Defect_description"
     click E "https://github.com/SewerDefectAnalysis/Defect_Factor_Correlation"
 
+
     %% Styles
     classDef data fill:#E8F0FE,stroke:#1A73E8
     classDef validation fill:#E6F4EA,stroke:#188038
     classDef analysis fill:#F3E8FD,stroke:#9334E6
     classDef analysisP2 fill:#FDEBD0,stroke:#E67E22
-    classDef optional fill:#E6F4EA,stroke:#666666,stroke-dasharray: 5 5
+    classDef optional fill:#E6F4EA,stroke:#666666,stroke-dasharray:5 5
 
 
 ```
