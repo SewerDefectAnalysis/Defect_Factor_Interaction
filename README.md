@@ -1,7 +1,51 @@
 # Interaction between factors and defects in sewer systems
 
+# Project overview
+
+This repository is part of a broader project that aims to analyze sewer deterioration at the defect level. The steps of this project are presented in the figure below. This repository corresponds to the data validation stage, highlighted in red in the figure.
+
+```mermaid
+%%{init: {'flowchart': {'nodeSpacing': 40, 'rankSpacing': 50}}}%%
+flowchart LR
+
+    A[Database Structure]:::data --> B[Validation<br/>Rules]:::validation
+    B --> D[Defect Distribution<br/>Analysis]:::analysis
+    D --> E[Defect-Factor<br/>Correlation]:::analysisP2
+
+    subgraph boxB[ ]
+        direction TB
+        B
+    end
+
+    subgraph boxC[ ]
+        direction TB
+        C[Optional: Validation<br/>Report]:::optional
+    end
+
+    style boxB stroke:#FF0000,stroke-width:3px,fill:none
+    style boxC stroke:#FF0000,stroke-width:3px,fill:none
+
+    B -.-> C
+
+
+    %% Click links
+    click A "https://github.com/SewerDefectAnalysis/Database_Structure"
+    click B "https://github.com/SewerDefectAnalysis/Data_validation"
+    click C "https://github.com/SewerDefectAnalysis/Data_validation"
+    click D "https://github.com/SewerDefectAnalysis/Defect_description"
+    click E "https://github.com/SewerDefectAnalysis/Defect_Factor_Correlation"
+
+    %% Styles
+    classDef data fill:#E8F0FE,stroke:#1A73E8
+    classDef validation fill:#E6F4EA,stroke:#188038
+    classDef analysis fill:#F3E8FD,stroke:#9334E6
+    classDef analysisP2 fill:#FDEBD0,stroke:#E67E22
+    classDef optional fill:#E6F4EA,stroke:#666666,stroke-dasharray: 5 5
+
+
+```
 ---
-## Overview
+## Interaction between factors and defects in sewer systems - Repository
 This repository analyzes CCTV inspection data and reported sewer defects to explore the relationships between pipe-related factors—both numerical and categorical—and different defect types. The analysis is conducted separately for each pipe material to identify patterns, similarities, and differences in how factors relate to defects.
 
 The workflow is organized into four main stages:
@@ -12,11 +56,11 @@ Prepares the data for consistent analysis and comparison. Users can interact wit
 **2. Dataset description**
 Provides a descriptive analysis of the dataset variables using boxplots, tables, and correlation analysis.
 
-**3. Analysis of Pipe Condition Metrics by Material**
-Examines correlations between pipe condition metrics and selected factors, analyzed separately for each pipe material.
+**3. Analysis of the effect of influencing factors on pipe condition**  
+Examines the relationships between influencing factors and two pipe condition metrics (condition score and number of defects per pipe), analyzed separately for each pipe material.
 
-**4. Analysis of Defect Type by Material**
-Investigates the relationship between the number of defects per pipe (for each defect type) and selected factors, evaluated independently for each pipe material.
+**4. Analysis of the effect of influencing factors on defect types**  
+Examines the relationships between influencing factors and defect types, analyzed separately for each pipe material.
 
 ---
 ## Code structure
@@ -39,20 +83,29 @@ The repository contains the main workflow notebook together with the Python scri
 - `Linear_analysis_defects_per_pipe.py` — linear analysis of aggregate defect counts per pipe.
 ---
 ## Input data
-The code is designed to receive the input file as an Excel file (.xlsx, .xls) or as a database file (.db)
+The code is designed to accept an Excel file (.xlsx or .xls) as input, which can be structured in two ways:
 
-### Excel
+### Option 1 — Create your own input file
+Manually create an Excel file that contains the following sheets:
 
-If the Input data is an Excel file, the workbook must contain three sheets: `PIPES`, `CCTV`, and `DEFECTS`. If hydraulic parameters are to be considered as factors in the analysis, a fourth sheet, `HYDRAULIC_PROPERTIES`, should also be considered.
+1. **PIPES:** Description of the pipes in the network.
+
+2. **CCTV:** Data related to pipe inspections.
+
+3. **DEFECTS:**   Details of observed defects.
+
+4. **HYDRAULIC_PROPERTIES:** *(optional)* Information on the hydraulic characteristics of the pipes, such as flow rate and velocity. 
+This sheet should only be included if hydraulic properties are required as part of the analysis.
 
 Detailed descriptions of the required columns for each sheet are provided in **Appendix A**.
 
-### Database
-
-Input data can be provided as a database file (.db).
-If needed, a database can be created from source files such as .csv, .xlsx, .xls, .parquet, or other formats using the following repository:
-
-https://github.com/SewerDefectAnalysis/Database_Structure.git
+### Option 2 — Follow the full framework (recommended)  
+  Generate the input dataset by following the complete workflow proposed in this project.  
+  Each stage of the framework is implemented in a dedicated repository and can be followed step by step:
+  - Implement the database structure  
+  - Apply the validation rules to your raw data  
+  - Export the validated dataset as an Excel file
+  > **Important note:** See the workflow diagram above. Each step is clickable and links to the corresponding code and documentation.
 
 ---
 ## Data Validation (optional)
@@ -88,8 +141,7 @@ If you are working in a notebook environment, also ensure the kernel uses the sa
 **1.** Open the notebook `Interaction_Defects_Factors.ipynb`.  
 
 **2.** Configure the input data settings and load the data.
-- If the input data is in an Excel file, go to the _Load data from Excel_ section and set the file path and sheet names.  
-- If the input data comes from a database, set the connection or file path and run the _Load data from Database_ section.  
+Go to the _Load data from Excel_ section and set the file path and sheet names.  
 
 **3.** Run all cells in the notebook.
 
