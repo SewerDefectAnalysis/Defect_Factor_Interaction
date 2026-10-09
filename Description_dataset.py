@@ -102,7 +102,7 @@ def plot_boxplots_grid(
 
         # Title
         axes[i].set_title(
-            f"Distribution of {label}",
+            f"{label}",
             fontsize=13,
             fontweight="bold"
         )
