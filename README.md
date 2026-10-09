@@ -160,7 +160,8 @@ These visualizations provide insights into how the selected factors influence de
 ## Citation
 If you use this repository in your research, please cite the corresponding paper:  
 
-_(Add citation)_
+González, M. A., Herrán, J., van Zyl, J. E., & Henning, T. F. P. (2026). Defect-Level Analysis: Investigating Relationships Between Influencing Factors and Defect Type for Sewer Networks. 
+
 
 ---
 ## License
